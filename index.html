@@ -559,6 +559,567 @@
                         confetti.remove();
                     }, 5000);
                 }, i * 50);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Raksha Bandhan</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            color: white;
+        }
+        
+        /* Landing Screen Styles */
+        .landing-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: 10;
+            transition: opacity 1s ease-out;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .landing-text {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: zoomInOut 3s ease-in-out infinite;
+        }
+        
+        @keyframes zoomInOut {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .reveal-btn {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reveal-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+        }
+        
+        .reveal-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent, transparent, transparent,
+                rgba(255, 255, 255, 0.3), transparent
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* Celebration Screen Styles */
+        .celebration-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0033 0%, #0a0033 100%);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            overflow: hidden;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(90deg, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: discoLight 5s linear infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 20;
+        }
+        
+        @keyframes discoLight {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .rakhi-img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 51, 153, 0.5);
+            animation: pulse 3s ease-in-out infinite, shadowGlow 6s linear infinite;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 20;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes shadowGlow {
+            0% { box-shadow: 0 0 30px rgba(255, 51, 153, 0.5); }
+            33% { box-shadow: 0 0 30px rgba(51, 204, 255, 0.5); }
+            66% { box-shadow: 0 0 30px rgba(255, 204, 51, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(255, 51, 153, 0.5); }
+        }
+        
+        .greeting {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            position: relative;
+            z-index: 20;
+            max-width: 90%;
+        }
+        
+        .name {
+            font-weight: bold;
+            animation: nameGlow 3s ease infinite, nameZoom 2s ease infinite;
+            display: inline-block;
+        }
+        
+        @keyframes nameGlow {
+            0%, 100% { text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc; }
+            50% { text-shadow: 0 0 20px #00ccff, 0 0 30px #00ccff; }
+        }
+        
+        @keyframes nameZoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            max-width: 500px;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 20;
+        }
+        
+        input, textarea {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff00cc;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gift-btn {
+            background: linear-gradient(45deg, #ff00cc, #ff6600);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+            animation: bounce 2s infinite, pulseGlow 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 204, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 204, 0.8); }
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* Video Modal Styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 51, 153, 0.7);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(255, 0, 204, 0.7);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 0, 204, 1);
+        }
+        
+        /* Celebration Effects */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.7;
+            animation: confettiFall 5s linear infinite;
+            z-index: 10;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .flower {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: flowerFall linear infinite;
+            z-index: 15;
+        }
+        
+        @keyframes flowerFall {
+            0% { transform: translateY(-100px) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(50px) rotate(180deg); opacity: 0; }
+        }
+        
+        .balloon {
+            position: absolute;
+            border-radius: 50%;
+            animation: balloonFloat linear infinite;
+            opacity: 0.7;
+            z-index: 15;
+        }
+        
+        @keyframes balloonFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .landing-text {
+                font-size: 1.8rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .greeting {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .landing-text {
+                font-size: 1.5rem;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .greeting {
+                font-size: 1rem;
+            }
+            
+            .action-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div class="landing-screen" id="landingScreen">
+        <h1 class="landing-text">Special Raksha Bandhan message waiting for you</h1>
+        <button class="reveal-btn" id="revealBtn">Click to Reveal</button>
+    </div>
+    
+    <!-- Celebration Screen -->
+    <div class="celebration-screen" id="celebrationScreen">
+        <h1 class="title">Happy Raksha Bandhan</h1>
+        <img src="rakhi.gif" alt="Rakhi" class="rakhi-img">
+        <div class="greeting" id="greetingText">
+            <span class="name" id="nameDisplay">Someone</span> ki taraf se: 
+            <span id="messageDisplay">aapko Raksha Bandhan ki bahut bahut badhai</span>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="nameInput" placeholder="Enter your name">
+            <textarea id="messageInput" placeholder="Type your message"></textarea>
+        </div>
+        
+        <div class="button-container">
+            <button class="action-btn gift-btn" id="giftBtn">
+                🎁 Special Rakhi Gift Video 🎁 👇
+            </button>
+            <button class="action-btn whatsapp-btn" id="whatsappBtn">
+                <span class="whatsapp-icon">📱</span> Share via WhatsApp
+            </button>
+        </div>
+    </div>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-container">
+            <button class="close-btn" id="closeBtn">×</button>
+            <video controls id="giftVideo">
+                <source src="VID_20250808_011702_099.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="rakhi.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // DOM Elements
+        const landingScreen = document.getElementById('landingScreen');
+        const celebrationScreen = document.getElementById('celebrationScreen');
+        const revealBtn = document.getElementById('revealBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const nameInput = document.getElementById('nameInput');
+        const messageInput = document.getElementById('messageInput');
+        const nameDisplay = document.getElementById('nameDisplay');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const giftBtn = document.getElementById('giftBtn');
+        const videoModal = document.getElementById('videoModal');
+        const giftVideo = document.getElementById('giftVideo');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        // Check URL parameters for name and message
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlName = urlParams.get('name');
+        const urlMessage = urlParams.get('msg');
+        
+        // Initialize name and message
+        if (urlName) {
+            nameInput.value = urlName;
+            nameDisplay.textContent = urlName;
+        }
+        
+        if (urlMessage) {
+            messageInput.value = urlMessage;
+            messageDisplay.textContent = urlMessage;
+        }
+        
+        // Event Listeners
+        revealBtn.addEventListener('click', startCelebration);
+        nameInput.addEventListener('input', updateName);
+        messageInput.addEventListener('input', updateMessage);
+        whatsappBtn.addEventListener('click', shareOnWhatsApp);
+        giftBtn.addEventListener('click', showGiftVideo);
+        closeBtn.addEventListener('click', closeVideoModal);
+        
+        // Close modal when clicking outside video
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+        
+        // Functions
+        function startCelebration() {
+            // Play music
+            backgroundMusic.play().catch(e => console.log("Auto-play prevented:", e));
+            
+            // Fade out landing screen
+            landingScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                landingScreen.style.display = 'none';
+                celebrationScreen.style.display = 'flex';
+                
+                // Start celebration effects
+                createConfetti();
+                createFlowers();
+                createBalloons();
+            }, 1000);
+        }
+        
+        function updateName() {
+            nameDisplay.textContent = nameInput.value || 'Someone';
+        }
+        
+        function updateMessage() {
+            messageDisplay.textContent = messageInput.value || 'aapko Raksha Bandhan ki bahut bahut badhai';
+        }
+        
+        function shareOnWhatsApp() {
+            const name = nameInput.value || 'Someone';
+            const message = messageInput.value || 'aapko Raksha Bandhan ki bahut bahut badhai';
+            const encodedMessage = encodeURIComponent(`${name} ki taraf se: ${message}`);
+            const currentUrl = window.location.href.split('?')[0];
+            const shareUrl = `${currentUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}%0A%0A${encodeURIComponent(shareUrl)}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function showGiftVideo() {
+            videoModal.style.display = 'flex';
+            giftVideo.play();
+            
+            // Pause background music when video plays
+            backgroundMusic.pause();
+        }
+        
+        function closeVideoModal() {
+            videoModal.style.display = 'none';
+            giftVideo.pause();
+            
+            // Resume background music when video closes
+            backgroundMusic.play();
+        }
+        
+        // Celebration Effects
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    confetti.style.animationDelay = Math.random() * 5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    // Remove confetti after animation completes
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
             }
         }
         
